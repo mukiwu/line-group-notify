@@ -25,9 +25,9 @@
   $("#notifySend").on('click', function() {
     $.ajax({
       url: "/sendMessage",
-      context: {
-        "message": 'HHHHHHHHHHHH'
-      }
+      data: {
+				"message": "Hello World",
+			},
     }).done(function() {
       console.log('success')
     });

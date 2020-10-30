@@ -65,8 +65,7 @@ app.prepare().then(() => {
   });
 
   server.get('/sendMessage', async function(req, res){
-    // const message = req.query.message;
-    const message = '123';
+    const message = req.query.message;
     console.log(message);
     subscriptions.forEach((token)=>{
       lineNotify.sendNotify(token, message);
