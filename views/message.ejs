@@ -24,12 +24,14 @@
   let token = "<%= token %>";
   $("#notifySend").on('click', function() {
     $.ajax({
+      method: 'post',
       url: "/sendMessage",
       data: {
-				"message": "Hello World",
+				"message": $('#notifyMessage').val(),
 			},
     }).done(function() {
-      console.log('success')
+      $('#notifyMessage').val("");
+      alert('訊息已送出');
     });
   })
 </script>

@@ -37,12 +37,14 @@ app.prepare().then(() => {
 
   server.use(
     express.static(__dirname + '/public'),
-    bodyParser.json({
-      verify: (req, _, buf) => {
-        req.rawBody = buf.toString();
-      },
-    })
+    // bodyParser.json({
+    //   verify: (req, _, buf) => {
+    //     req.rawBody = buf.toString();
+    //   },
+    // })
   );
+  server.use(bodyParser.urlencoded({ extended: false }))
+  server.use(bodyParser.json())
 
   // routes for LINE Notify
   server.get('/callback', async function(req, res){
@@ -64,9 +66,10 @@ app.prepare().then(() => {
     });
   });
 
-  server.get('/sendMessage', async function(req, res){
-    const message = req.query.message;
-    console.log(message);
+  server.post('/sendMessage', async function(req, res){
+    console.log(req.body);
+    console.log('subscriptions', subscriptions);
+    const message = req.body.message;
     subscriptions.forEach((token)=>{
       lineNotify.sendNotify(token, message);
     });
